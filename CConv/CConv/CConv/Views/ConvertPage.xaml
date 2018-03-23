@@ -12,18 +12,33 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
 
-            <Label Text="Source" />
-            <Entry x:Name="ConvertSource" Text="{Binding Source, Mode=TwoWay}">
-                <Entry.Behaviors>
-                    <validators:CurrencyValidationBehavior />
-                </Entry.Behaviors>
-            </Entry>
+            <StackLayout Grid.Row="1" Grid.Column="1">
+                <Label Text="Source" HorizontalTextAlignment="Center"/>
+                <Entry x:Name="ConvertSource" Text="{Binding Source, Mode=TwoWay}">
+                    <Entry.Behaviors>
+                        <validators:CurrencyValidationBehavior/>
+                    </Entry.Behaviors>
+                </Entry>
+            </StackLayout>
 
-            <Label Text="Target" />
-            <Entry x:Name="ConvertTarget" Text="{Binding Source, Mode=TwoWay, Converter={StaticResource CurrencyConverter}}"/>
+            <StackLayout Grid.Row="2" Grid.Column="1">
+                <Label Text="Target" HorizontalTextAlignment="Center"/>
+                <Entry x:Name="ConvertTarget" Text="{Binding Source, Mode=TwoWay, Converter={StaticResource CurrencyConverter}}"/>
+            </StackLayout>
 
-        </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
