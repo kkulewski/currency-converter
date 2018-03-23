@@ -1,11 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:CConv"
+             xmlns:views="clr-namespace:CConv.Views;assembly=CConv"
              x:Class="CConv.Views.MainPage">
+    <TabbedPage.Children>
 
-	<Label Text="Welcome to Xamarin.Forms!" 
-           VerticalOptions="Center" 
-           HorizontalOptions="Center" />
+        <NavigationPage Title="Convert">
+            <x:Arguments>
+                <views:ConvertPage />
+            </x:Arguments>
+        </NavigationPage>
 
-</ContentPage>
+        <NavigationPage Title="About">
+            <x:Arguments>
+                <views:AboutPage />
+            </x:Arguments>
+        </NavigationPage>
+
+    </TabbedPage.Children>
+</TabbedPage>
