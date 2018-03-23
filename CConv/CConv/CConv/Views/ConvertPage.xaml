@@ -4,9 +4,10 @@
              x:Class="CConv.Views.ConvertPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label Text="Source" />
+            <Entry x:Name="ConvertSource" Text="{Binding Source, Mode=TwoWay}" />
+            <Label Text="Target" />
+            <Entry x:Name="ConvertTarget" Text="{Binding Source, Mode=TwoWay}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
