@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:CConv.Converters;assembly=CConv"
+             xmlns:validators="clr-namespace:CConv.Behaviors.Validators;assembly=CConv"
              x:Class="CConv.Views.ConvertPage">
 
     <ContentPage.Resources>
@@ -12,10 +13,17 @@
 
     <ContentPage.Content>
         <StackLayout>
+
             <Label Text="Source" />
-            <Entry x:Name="ConvertSource" Text="{Binding Source, Mode=TwoWay}" />
+            <Entry x:Name="ConvertSource" Text="{Binding Source, Mode=TwoWay}">
+                <Entry.Behaviors>
+                    <validators:CurrencyValidationBehavior />
+                </Entry.Behaviors>
+            </Entry>
+
             <Label Text="Target" />
             <Entry x:Name="ConvertTarget" Text="{Binding Source, Mode=TwoWay, Converter={StaticResource CurrencyConverter}}"/>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
