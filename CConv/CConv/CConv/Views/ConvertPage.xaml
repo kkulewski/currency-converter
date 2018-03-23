@@ -1,13 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:CConv.Converters;assembly=CConv"
              x:Class="CConv.Views.ConvertPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BasicCurrencyConverter x:Key="CurrencyConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Source" />
             <Entry x:Name="ConvertSource" Text="{Binding Source, Mode=TwoWay}" />
             <Label Text="Target" />
-            <Entry x:Name="ConvertTarget" Text="{Binding Source, Mode=TwoWay}"/>
+            <Entry x:Name="ConvertTarget" Text="{Binding Source, Mode=TwoWay, Converter={StaticResource CurrencyConverter}}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
