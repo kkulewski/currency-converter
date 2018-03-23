@@ -5,13 +5,13 @@
              x:Class="CConv.Views.MainPage">
     <TabbedPage.Children>
 
-        <NavigationPage Title="Convert">
+        <NavigationPage Title="Convert" BarBackgroundColor="PaleGreen">
             <x:Arguments>
                 <views:ConvertPage />
             </x:Arguments>
         </NavigationPage>
 
-        <NavigationPage Title="About">
+        <NavigationPage Title="About" BarBackgroundColor="SkyBlue">
             <x:Arguments>
                 <views:AboutPage />
             </x:Arguments>
