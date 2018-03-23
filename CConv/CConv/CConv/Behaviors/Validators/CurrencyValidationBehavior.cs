@@ -24,7 +24,7 @@ namespace CConv.Behaviors.Validators
             var isDecimal = decimal.TryParse(e.NewTextValue, out var number);
             var isPositive = number > 0;
 
-            entry.BackgroundColor = isDecimal && isPositive ? Color.PaleGreen : Color.IndianRed;
+            entry.BackgroundColor = isDecimal && isPositive ? Color.PaleGreen : Color.Crimson;
         }
     }
 }
