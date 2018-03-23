@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CConv.ViewModels
+﻿namespace CConv.ViewModels
 {
     public class ConvertViewModel : BaseViewModel
     {
         private decimal _source;
-
         private decimal _target;
 
         public ConvertViewModel()
@@ -19,23 +14,13 @@ namespace CConv.ViewModels
         public decimal Source
         {
             get => _source;
-
-            set
-            {
-                _source = value;
-                OnPropertyChanged(nameof(Source));
-            }
+            set => SetProperty(ref _source, value);
         }
 
         public decimal Target
         {
             get => _target;
-
-            set
-            {
-                _target = value;
-                OnPropertyChanged(nameof(Target));
-            }
+            set => SetProperty(ref _target, value);
         }
     }
 }
