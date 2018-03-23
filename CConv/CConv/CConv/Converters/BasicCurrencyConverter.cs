@@ -40,7 +40,7 @@ namespace CConv.Converters
             return 0;
         }
 
-        private decimal ParseString(object value)
+        private static decimal ParseString(object value)
         {
             decimal.TryParse((string)value, out var result);
             return result;
