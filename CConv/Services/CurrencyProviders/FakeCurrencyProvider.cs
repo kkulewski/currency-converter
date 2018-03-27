@@ -1,14 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using CConv.Models;
 
 namespace CConv.Services.CurrencyProviders
 {
     public class FakeCurrencyProvider : ICurrencyProvider
     {
+        private readonly Random _random;
+
         public FakeCurrencyProvider()
         {
-            Name = "FakeProvider";
+            _random = new Random();
 
+            Name = "FakeProvider";
             Currencies = new List<ICurrency>
             {
                 new Currency {Code = "EUR", Name = "Euro", Rate = 1.0M},
@@ -19,9 +24,19 @@ namespace CConv.Services.CurrencyProviders
             };
         }
 
-
         public string Name { get; }
 
         public IList<ICurrency> Currencies { get; }
+
+        public async Task<bool> Fetch()
+        {
+            foreach (var currency in Currencies)
+            {
+                var factor = _random.Next(-5, 5) * 0.01M;
+                currency.Rate = currency.Rate * factor;
+            }
+
+            return await Task.Run(() => true);
+        }
     }
 }
