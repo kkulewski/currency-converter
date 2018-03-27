@@ -3,10 +3,10 @@
     public interface ICurrency
     {
         /// <summary>
-        /// Currency short name.
+        /// Currency code.
         /// Example: EUR, USD
         /// </summary>
-        string ShortName { get; set; }
+        string Code { get; set; }
 
         /// <summary>
         /// Currency long name.
