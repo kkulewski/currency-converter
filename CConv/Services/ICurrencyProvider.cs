@@ -3,8 +3,10 @@ using CConv.Models;
 
 namespace CConv.Services
 {
-    public interface ICurrencyRateProvider
+    public interface ICurrencyProvider
     {
+        string Name { get; }
+
         IList<ICurrency> Currencies { get; }
     }
 }
