@@ -12,6 +12,7 @@
                 <RowDefinition Height="1*" />
                 <RowDefinition Height="1*" />
                 <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
@@ -20,6 +21,14 @@
             </Grid.ColumnDefinitions>
 
             <StackLayout Grid.Row="1" Grid.Column="1">
+                <Label Text="Provider" HorizontalTextAlignment="Center" />
+                <Picker
+                    ItemsSource="{Binding CurrencyProviderList}"
+                    SelectedItem="{Binding SelectedCurrencyProvider, Mode=TwoWay}"
+                    ItemDisplayBinding="{Binding Name}" />
+            </StackLayout>
+
+            <StackLayout Grid.Row="2" Grid.Column="1">
                 <Label Text="Source" HorizontalTextAlignment="Center" />
                 <Picker
                     ItemsSource="{Binding CurrencyList}"
@@ -32,7 +41,7 @@
                 </Entry>
             </StackLayout>
 
-            <StackLayout Grid.Row="2" Grid.Column="1">
+            <StackLayout Grid.Row="3" Grid.Column="1">
                 <Label Text="Target" HorizontalTextAlignment="Center" />
                 <Picker
                     ItemsSource="{Binding CurrencyList}"

@@ -2,12 +2,14 @@
 using System.Linq;
 using CConv.Models;
 using CConv.Services;
+using CConv.Services.CurrencyProviders;
 
 namespace CConv.ViewModels
 {
     public class ConvertViewModel : BaseViewModel
     {
         private readonly ICurrencyConversionService _conversionService;
+        private ICurrencyProvider _currencyProvider;
         private ICurrency _sourceCurrency;
         private ICurrency _targetCurrency;
         private decimal _sourceValue;
@@ -16,17 +18,27 @@ namespace CConv.ViewModels
         public ConvertViewModel()
         {
             _conversionService = new CurrencyConversionService();
-
-            CurrencyList = new List<ICurrency>
+            CurrencyProviderList = new List<ICurrencyProvider>
             {
-                new Currency {Name = "Euro", ShortName = "EUR", Rate = 1.0M},
-                new Currency {Name = "United States dollar", ShortName = "USD", Rate = 1.2M}
+                new FakeCurrencyProvider()
             };
+
+            SelectedCurrencyProvider = CurrencyProviderList.FirstOrDefault();
+
+            CurrencyList = SelectedCurrencyProvider.Currencies;
 
             SourceCurrency = CurrencyList.FirstOrDefault();
             TargetCurrency = CurrencyList.LastOrDefault();
 
             PropertyChanged += (sender, e) => Convert();
+        }
+
+        public IList<ICurrencyProvider> CurrencyProviderList { get; set; }
+
+        public ICurrencyProvider SelectedCurrencyProvider
+        {
+            get => _currencyProvider;
+            set => SetProperty(ref _currencyProvider, value);
         }
 
         public IList<ICurrency> CurrencyList { get; set; }
