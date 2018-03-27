@@ -27,11 +27,11 @@
             </Grid.ColumnDefinitions>
 
             <StackLayout Grid.Row="1" Grid.Column="1">
+                <Label Text="Source" HorizontalTextAlignment="Center" />
                 <Picker
                     ItemsSource="{Binding CurrencyList}"
                     SelectedItem="{Binding SourceCurrency, Mode=TwoWay}"
                     ItemDisplayBinding="{Binding ShortName}" />
-                <Label Text="Source" HorizontalTextAlignment="Center" />
                 <Entry x:Name="ConvertSource" Text="{Binding SourceValue, Mode=TwoWay}">
                     <Entry.Behaviors>
                         <validators:CurrencyValidationBehavior />
@@ -40,12 +40,12 @@
             </StackLayout>
 
             <StackLayout Grid.Row="2" Grid.Column="1">
+                <Label Text="Target" HorizontalTextAlignment="Center" />
                 <Picker
                     ItemsSource="{Binding CurrencyList}"
                     SelectedItem="{Binding TargetCurrency, Mode=TwoWay}"
                     ItemDisplayBinding="{Binding ShortName}" />
-                <Label Text="Target" HorizontalTextAlignment="Center" />
-                <Entry x:Name="ConvertTarget" Text="{Binding SourceValue, Mode=TwoWay}" IsEnabled="False" />
+                <Entry x:Name="ConvertTarget" Text="{Binding TargetValue, Mode=OneWay}" IsEnabled="False" />
             </StackLayout>
 
         </Grid>
