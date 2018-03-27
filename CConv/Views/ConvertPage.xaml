@@ -23,15 +23,16 @@
             <StackLayout Grid.Row="1" Grid.Column="1">
                 <Label Text="Provider" HorizontalTextAlignment="Center" />
                 <Picker
-                    ItemsSource="{Binding CurrencyProviderList}"
+                    ItemsSource="{Binding CurrencyProviders}"
                     SelectedItem="{Binding SelectedCurrencyProvider, Mode=TwoWay}"
                     ItemDisplayBinding="{Binding Name}" />
+                <Button Text="Fetch" Command="{Binding FetchCommand}"/>
             </StackLayout>
 
             <StackLayout Grid.Row="2" Grid.Column="1">
                 <Label Text="Source" HorizontalTextAlignment="Center" />
                 <Picker
-                    ItemsSource="{Binding CurrencyList}"
+                    ItemsSource="{Binding Currencies}"
                     SelectedItem="{Binding SourceCurrency, Mode=TwoWay}"
                     ItemDisplayBinding="{Binding Code}" />
                 <Entry x:Name="ConvertSource" Text="{Binding SourceValue, Mode=TwoWay}">
@@ -44,7 +45,7 @@
             <StackLayout Grid.Row="3" Grid.Column="1">
                 <Label Text="Target" HorizontalTextAlignment="Center" />
                 <Picker
-                    ItemsSource="{Binding CurrencyList}"
+                    ItemsSource="{Binding Currencies}"
                     SelectedItem="{Binding TargetCurrency, Mode=TwoWay}"
                     ItemDisplayBinding="{Binding Code}" />
                 <Entry x:Name="ConvertTarget" Text="{Binding TargetValue, Mode=OneWay}" IsEnabled="False" />

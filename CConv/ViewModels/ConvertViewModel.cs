@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Input;
 using CConv.Models;
 using CConv.Services;
 using CConv.Services.CurrencyProviders;
+using Xamarin.Forms;
 
 namespace CConv.ViewModels
 {
@@ -18,22 +20,28 @@ namespace CConv.ViewModels
         public ConvertViewModel()
         {
             _conversionService = new CurrencyConversionService();
-            CurrencyProviderList = new List<ICurrencyProvider>
+            CurrencyProviders = new List<ICurrencyProvider>
             {
                 new FakeCurrencyProvider()
             };
 
-            SelectedCurrencyProvider = CurrencyProviderList.FirstOrDefault();
+            SelectedCurrencyProvider = CurrencyProviders.FirstOrDefault();
 
-            CurrencyList = SelectedCurrencyProvider.Currencies;
+            Currencies = SelectedCurrencyProvider.Currencies;
 
-            SourceCurrency = CurrencyList.FirstOrDefault();
-            TargetCurrency = CurrencyList.LastOrDefault();
+            SourceCurrency = Currencies.FirstOrDefault();
+            TargetCurrency = Currencies.LastOrDefault();
 
             PropertyChanged += (sender, e) => Convert();
+
+            FetchCommand = new Command(() =>
+            {
+                SelectedCurrencyProvider.Fetch();
+                OnPropertyChanged(nameof(SourceValue));
+            });
         }
 
-        public IList<ICurrencyProvider> CurrencyProviderList { get; set; }
+        public IList<ICurrencyProvider> CurrencyProviders { get; set; }
 
         public ICurrencyProvider SelectedCurrencyProvider
         {
@@ -41,7 +49,7 @@ namespace CConv.ViewModels
             set => SetProperty(ref _currencyProvider, value);
         }
 
-        public IList<ICurrency> CurrencyList { get; set; }
+        public IList<ICurrency> Currencies { get; set; }
 
         public ICurrency SourceCurrency
         {
@@ -71,5 +79,7 @@ namespace CConv.ViewModels
         {
             TargetValue = _conversionService.Convert(SourceCurrency, TargetCurrency, SourceValue);
         }
+
+        public ICommand FetchCommand { get; }
     }
 }
