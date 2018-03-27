@@ -1,13 +1,13 @@
-﻿using System;
-using CConv.Models;
+﻿using CConv.Models;
 
 namespace CConv.Services
 {
-    public class CurrencyConverterService : ICurrencyConverterService
+    public class CurrencyConversionService : ICurrencyConversionService
     {
         public decimal Convert(ICurrency sourceCurrency, ICurrency targetCurrency, decimal value)
         {
-            throw new NotImplementedException();
+            var rate = targetCurrency.Rate / sourceCurrency.Rate;
+            return value * rate;
         }
     }
 }
