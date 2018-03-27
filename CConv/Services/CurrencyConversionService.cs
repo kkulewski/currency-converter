@@ -7,7 +7,7 @@ namespace CConv.Services
         public decimal Convert(ICurrency sourceCurrency, ICurrency targetCurrency, decimal value)
         {
             var rate = targetCurrency.Rate / sourceCurrency.Rate;
-            return value * rate;
+            return decimal.Round(value * rate, 2);
         }
     }
 }

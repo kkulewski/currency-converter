@@ -33,7 +33,8 @@ namespace CConv.Services.CurrencyProviders
             foreach (var currency in Currencies)
             {
                 var factor = _random.Next(-5, 5) * 0.01M;
-                currency.Rate = currency.Rate * factor;
+                currency.Rate += currency.Rate * factor;
+                currency.Rate = decimal.Round(currency.Rate, 4);
             }
 
             return await Task.Run(() => true);
