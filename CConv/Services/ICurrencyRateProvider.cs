@@ -1,6 +1,10 @@
-﻿namespace CConv.Models
+﻿using System.Collections.Generic;
+using CConv.Models;
+
+namespace CConv.Services
 {
-    public interface IExchangeRateProvider
+    public interface ICurrencyRateProvider
     {
+        IList<ICurrency> Currencies { get; }
     }
 }
