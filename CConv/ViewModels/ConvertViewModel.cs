@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using CConv.Models;
 
 namespace CConv.ViewModels
@@ -12,6 +13,14 @@ namespace CConv.ViewModels
 
         public ConvertViewModel()
         {
+            CurrencyList = new List<ICurrency>
+            {
+                new Currency {Name = "Euro", ShortName = "EUR", Rate = 1.0M},
+                new Currency {Name = "United States dollar", ShortName = "USD", Rate = 1.2M}
+            };
+
+            SourceCurrency = CurrencyList.FirstOrDefault();
+            TargetCurrency = CurrencyList.LastOrDefault();
         }
 
         public IList<ICurrency> CurrencyList { get; set; }

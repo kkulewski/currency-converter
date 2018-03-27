@@ -1,4 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:CConv.Converters;assembly=CConv"
@@ -7,54 +8,44 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <converters:BasicCurrencyConverter x:Key="CurrencyConverter"/>
+            <converters:BasicCurrencyConverter x:Key="CurrencyConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
 
             <StackLayout Grid.Row="1" Grid.Column="1">
-                <ListView
+                <Picker
                     ItemsSource="{Binding CurrencyList}"
-                    SelectedItem="{Binding SourceCurrency, Mode=TwoWay}" >
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <TextCell Text="{Binding ShortName}" Detail="{Binding Name}"/>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                <Label Text="Source" HorizontalTextAlignment="Center"/>
+                    SelectedItem="{Binding SourceCurrency, Mode=TwoWay}"
+                    ItemDisplayBinding="{Binding ShortName}" />
+                <Label Text="Source" HorizontalTextAlignment="Center" />
                 <Entry x:Name="ConvertSource" Text="{Binding SourceValue, Mode=TwoWay}">
                     <Entry.Behaviors>
-                        <validators:CurrencyValidationBehavior/>
+                        <validators:CurrencyValidationBehavior />
                     </Entry.Behaviors>
                 </Entry>
             </StackLayout>
 
             <StackLayout Grid.Row="2" Grid.Column="1">
-                <ListView
+                <Picker
                     ItemsSource="{Binding CurrencyList}"
-                    SelectedItem="{Binding TargetCurrency, Mode=TwoWay}" >
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <TextCell Text="{Binding ShortName}" Detail="{Binding Name}"/>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                <Label Text="Target" HorizontalTextAlignment="Center"/>
-                <Entry x:Name="ConvertTarget" Text="{Binding SourceValue, Mode=TwoWay, Converter={StaticResource CurrencyConverter}}"/>
+                    SelectedItem="{Binding TargetCurrency, Mode=TwoWay}"
+                    ItemDisplayBinding="{Binding ShortName}" />
+                <Label Text="Target" HorizontalTextAlignment="Center" />
+                <Entry x:Name="ConvertTarget" Text="{Binding SourceValue, Mode=TwoWay}" IsEnabled="False" />
             </StackLayout>
 
         </Grid>
