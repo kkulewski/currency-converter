@@ -5,6 +5,5 @@
         public string ShortName { get; set; }
         public string Name { get; set; }
         public decimal Rate { get; set; }
-        public IExchangeRateProvider Provider { get; set; }
     }
 }

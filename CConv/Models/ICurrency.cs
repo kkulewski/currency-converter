@@ -18,10 +18,5 @@
         /// Conversion rate to EUR.
         /// </summary>
         decimal Rate { get; set; }
-
-        /// <summary>
-        /// Currency exchange rate provider.
-        /// </summary>
-        IExchangeRateProvider Provider { get; set; }
     }
 }
