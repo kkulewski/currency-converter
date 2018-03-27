@@ -1,4 +1,5 @@
-﻿using CConv.Models;
+﻿using System.Collections.Generic;
+using CConv.Models;
 
 namespace CConv.ViewModels
 {
@@ -12,6 +13,8 @@ namespace CConv.ViewModels
         public ConvertViewModel()
         {
         }
+
+        public IList<ICurrency> CurrencyList { get; set; }
 
         public ICurrency SourceCurrency
         {

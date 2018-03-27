@@ -26,6 +26,15 @@
             </Grid.ColumnDefinitions>
 
             <StackLayout Grid.Row="1" Grid.Column="1">
+                <ListView
+                    ItemsSource="{Binding CurrencyList}"
+                    SelectedItem="{Binding SourceCurrency, Mode=TwoWay}" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextCell Text="{Binding ShortName}" Detail="{Binding Name}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
                 <Label Text="Source" HorizontalTextAlignment="Center"/>
                 <Entry x:Name="ConvertSource" Text="{Binding SourceValue, Mode=TwoWay}">
                     <Entry.Behaviors>
@@ -35,6 +44,15 @@
             </StackLayout>
 
             <StackLayout Grid.Row="2" Grid.Column="1">
+                <ListView
+                    ItemsSource="{Binding CurrencyList}"
+                    SelectedItem="{Binding TargetCurrency, Mode=TwoWay}" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextCell Text="{Binding ShortName}" Detail="{Binding Name}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
                 <Label Text="Target" HorizontalTextAlignment="Center"/>
                 <Entry x:Name="ConvertTarget" Text="{Binding SourceValue, Mode=TwoWay, Converter={StaticResource CurrencyConverter}}"/>
             </StackLayout>
