@@ -1,6 +1,6 @@
 ﻿namespace CConv.Models
 {
-    internal interface ICurrency
+    public interface ICurrency
     {
         /// <summary>
         /// Currency short name.

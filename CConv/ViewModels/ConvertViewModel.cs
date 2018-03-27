@@ -1,26 +1,40 @@
-﻿namespace CConv.ViewModels
+﻿using CConv.Models;
+
+namespace CConv.ViewModels
 {
     public class ConvertViewModel : BaseViewModel
     {
-        private decimal _source;
-        private decimal _target;
+        private ICurrency _sourceCurrency;
+        private ICurrency _targetCurrency;
+        private decimal _sourceValue;
+        private decimal _targetValue;
 
         public ConvertViewModel()
         {
-            Source = 5.00M;
-            Target = 10.00M;
         }
 
-        public decimal Source
+        public ICurrency SourceCurrency
         {
-            get => _source;
-            set => SetProperty(ref _source, value);
+            get => _sourceCurrency;
+            set => SetProperty(ref _sourceCurrency, value);
         }
 
-        public decimal Target
+        public ICurrency TargetCurrency
         {
-            get => _target;
-            set => SetProperty(ref _target, value);
+            get => _targetCurrency;
+            set => SetProperty(ref _targetCurrency, value);
+        }
+
+        public decimal SourceValue
+        {
+            get => _sourceValue;
+            set => SetProperty(ref _sourceValue, value);
+        }
+
+        public decimal TargetValue
+        {
+            get => _targetValue;
+            set => SetProperty(ref _targetValue, value);
         }
     }
 }

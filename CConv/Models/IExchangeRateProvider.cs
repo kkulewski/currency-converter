@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CConv.Models
+﻿namespace CConv.Models
 {
     public interface IExchangeRateProvider
     {
