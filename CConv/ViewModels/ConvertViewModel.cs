@@ -15,7 +15,6 @@ namespace CConv.ViewModels
         private ICurrency _sourceCurrency;
         private ICurrency _targetCurrency;
         private decimal _sourceValue;
-        private IList<ICurrency> _currencies;
 
         public ConvertViewModel()
         {
@@ -32,56 +31,36 @@ namespace CConv.ViewModels
             });
         }
 
+        public ICommand FetchCommand { get; }
+
         public IList<ICurrencyProvider> CurrencyProviders { get; set; }
 
         public ICurrencyProvider SelectedCurrencyProvider
         {
             get => _currencyProvider ?? CurrencyProviders.FirstOrDefault();
-            set
-            {
-                _currencyProvider = value;
-                Currencies = _currencyProvider.Currencies;
-            }
+            set => SetProperty(ref _currencyProvider, value, () => OnPropertyChanged(nameof(Currencies)));
         }
 
-        public IList<ICurrency> Currencies
-        {
-            get => _currencies;
-            set => SetProperty(ref _currencies, value);
-        }
+        public IList<ICurrency> Currencies => SelectedCurrencyProvider.Currencies;
 
         public ICurrency SourceCurrency
         {
             get => _sourceCurrency ?? Currencies.FirstOrDefault();
-            set
-            {
-                SetProperty(ref _sourceCurrency, value);
-                OnPropertyChanged(nameof(TargetValue));
-            } 
+            set => SetProperty(ref _sourceCurrency, value, () => OnPropertyChanged(nameof(TargetValue)));
         }
 
         public ICurrency TargetCurrency
         {
             get => _targetCurrency ?? Currencies.Skip(1).FirstOrDefault();
-            set
-            {
-                SetProperty(ref _targetCurrency, value);
-                OnPropertyChanged(nameof(TargetValue));
-            }
+            set => SetProperty(ref _targetCurrency, value, () => OnPropertyChanged(nameof(TargetValue)));
         }
 
         public decimal SourceValue
         {
             get => _sourceValue;
-            set
-            {
-                SetProperty(ref _sourceValue, value);
-                OnPropertyChanged(nameof(TargetValue));
-            }
+            set => SetProperty(ref _sourceValue, value, () => OnPropertyChanged(nameof(TargetValue)));
         }
 
         public decimal TargetValue => _conversionService.Convert(SourceCurrency, TargetCurrency, SourceValue);
-
-        public ICommand FetchCommand { get; }
     }
 }
