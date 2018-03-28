@@ -8,18 +8,16 @@ namespace CConv.ViewModels
     public abstract class BaseViewModel : INotifyPropertyChanged
     {
         private bool _isBusy;
-
         public bool IsBusy
         {
             get => _isBusy;
             set => SetProperty(ref _isBusy, value);
         }
 
-        private string _title = string.Empty;
-
+        private string _title;
         public string Title
         {
-            get => _title;
+            get => _title ?? string.Empty;
             set => SetProperty(ref _title, value);
         }
 
@@ -31,21 +29,16 @@ namespace CConv.ViewModels
                 return false;
 
             backingStore = value;
+            RaisePropertyChanged(propertyName);
             onChanged?.Invoke();
-            OnPropertyChanged(propertyName);
             return true;
         }
 
-        #region INotifyPropertyChanged
-
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        protected void RaisePropertyChanged([CallerMemberName] string propertyName = "")
         {
-            var changed = PropertyChanged;
-            changed?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        #endregion
     }
 }
