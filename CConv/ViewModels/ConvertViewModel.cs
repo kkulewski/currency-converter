@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using CConv.Models;
@@ -10,6 +11,7 @@ namespace CConv.ViewModels
 {
     public class ConvertViewModel : BaseViewModel
     {
+        public readonly Action RaiseTargetValueChanged;
         private readonly ICurrencyConversionService _conversionService;
         private ICurrencyProvider _currencyProvider;
         private ICurrency _sourceCurrency;
@@ -18,6 +20,8 @@ namespace CConv.ViewModels
 
         public ConvertViewModel()
         {
+            RaiseTargetValueChanged = () => OnPropertyChanged(nameof(Currencies));
+
             _conversionService = new CurrencyConversionService();
             CurrencyProviders = new List<ICurrencyProvider>
             {
@@ -38,7 +42,7 @@ namespace CConv.ViewModels
         public ICurrencyProvider SelectedCurrencyProvider
         {
             get => _currencyProvider ?? CurrencyProviders.FirstOrDefault();
-            set => SetProperty(ref _currencyProvider, value, () => OnPropertyChanged(nameof(Currencies)));
+            set => SetProperty(ref _currencyProvider, value, RaiseTargetValueChanged);
         }
 
         public IList<ICurrency> Currencies => SelectedCurrencyProvider.Currencies;
@@ -46,19 +50,19 @@ namespace CConv.ViewModels
         public ICurrency SourceCurrency
         {
             get => _sourceCurrency ?? Currencies.FirstOrDefault();
-            set => SetProperty(ref _sourceCurrency, value, () => OnPropertyChanged(nameof(TargetValue)));
+            set => SetProperty(ref _sourceCurrency, value, RaiseTargetValueChanged);
         }
 
         public ICurrency TargetCurrency
         {
             get => _targetCurrency ?? Currencies.Skip(1).FirstOrDefault();
-            set => SetProperty(ref _targetCurrency, value, () => OnPropertyChanged(nameof(TargetValue)));
+            set => SetProperty(ref _targetCurrency, value, RaiseTargetValueChanged);
         }
 
         public decimal SourceValue
         {
             get => _sourceValue;
-            set => SetProperty(ref _sourceValue, value, () => OnPropertyChanged(nameof(TargetValue)));
+            set => SetProperty(ref _sourceValue, value, RaiseTargetValueChanged);
         }
 
         public decimal TargetValue => _conversionService.Convert(SourceCurrency, TargetCurrency, SourceValue);
