@@ -16,13 +16,15 @@ namespace CConv.ViewModels
 
             CurrencyProviders = new List<ICurrencyProvider>
             {
-                new FakeCurrencyProvider()
+                new FakeCurrencyProvider(),
+                new NbpCurrencyProvider(NbpTable.A),
+                new NbpCurrencyProvider(NbpTable.B)
             };
 
-            FetchCommand = new Command(() =>
+            FetchCommand = new Command(async () =>
             {
-                SelectedCurrencyProvider.Fetch();
-                RaisePropertyChanged(nameof(TargetValue));
+                await SelectedCurrencyProvider.Fetch();
+                RaisePropertyChanged(nameof(Currencies));
             });
         }
 
@@ -37,7 +39,10 @@ namespace CConv.ViewModels
             set
             {
                 SetProperty(ref _currencyProvider, value);
-                RaisePropertyChanged(nameof(TargetValue));
+                if (_currencyProvider.Currencies != null)
+                {
+                    RaisePropertyChanged(nameof(Currencies));
+                }
             }
         }
 
