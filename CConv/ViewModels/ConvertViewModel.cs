@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using CConv.Models;
 using CConv.Services;
@@ -21,11 +22,7 @@ namespace CConv.ViewModels
                 new NbpCurrencyProvider(NbpTable.B)
             };
 
-            FetchCommand = new Command(async () =>
-            {
-                await SelectedCurrencyProvider.Fetch();
-                RaisePropertyChanged(nameof(Currencies));
-            });
+            FetchCommand = new Command(async () => await FetchCurrencies());
         }
 
         public ICurrencyConversionService ConversionService { get; set; }
@@ -39,10 +36,8 @@ namespace CConv.ViewModels
             set
             {
                 SetProperty(ref _currencyProvider, value);
-                if (_currencyProvider.Currencies != null)
-                {
-                    RaisePropertyChanged(nameof(Currencies));
-                }
+                RaisePropertyChanged(nameof(Currencies));
+                CurrenciesFetched = false;
             }
         }
 
@@ -64,7 +59,7 @@ namespace CConv.ViewModels
         private ICurrency _targetCurrency;
         public ICurrency TargetCurrency
         {
-            get => _targetCurrency ?? Currencies.Skip(1).FirstOrDefault();
+            get => _targetCurrency ?? Currencies.FirstOrDefault();
             set
             {
                 SetProperty(ref _targetCurrency, value);
@@ -83,6 +78,27 @@ namespace CConv.ViewModels
             }
         }
 
-        public decimal TargetValue => ConversionService.Convert(SourceCurrency, TargetCurrency, SourceValue);
+        public decimal TargetValue => CurrenciesFetched ? Convert : 0;
+
+        private bool _currenciesFetched;
+        public bool CurrenciesFetched
+        {
+            get => _currenciesFetched;
+            set => SetProperty(ref _currenciesFetched, value);
+        }
+
+        private async Task FetchCurrencies()
+        {
+            var fetchSucceeded = await SelectedCurrencyProvider.Fetch();
+            if (fetchSucceeded)
+            {
+                RaisePropertyChanged(nameof(Currencies));
+                RaisePropertyChanged(nameof(SourceCurrency));
+                RaisePropertyChanged(nameof(TargetCurrency));
+                CurrenciesFetched = true;
+            }
+        }
+
+        private decimal Convert => ConversionService.Convert(SourceCurrency, TargetCurrency, SourceValue);
     }
 }

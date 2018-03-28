@@ -34,8 +34,9 @@
                 <Picker
                     ItemsSource="{Binding Currencies}"
                     SelectedItem="{Binding SourceCurrency, Mode=TwoWay}"
-                    ItemDisplayBinding="{Binding Code}" />
-                <Entry x:Name="ConvertSource" Text="{Binding SourceValue, Mode=TwoWay}">
+                    ItemDisplayBinding="{Binding Code}"
+                    IsEnabled="{Binding CurrenciesFetched}" />
+                <Entry x:Name="ConvertSource" Text="{Binding SourceValue, Mode=TwoWay}" IsEnabled="{Binding CurrenciesFetched}">
                     <Entry.Behaviors>
                         <validators:CurrencyValidationBehavior />
                     </Entry.Behaviors>
@@ -47,7 +48,8 @@
                 <Picker
                     ItemsSource="{Binding Currencies}"
                     SelectedItem="{Binding TargetCurrency, Mode=TwoWay}"
-                    ItemDisplayBinding="{Binding Code}" />
+                    ItemDisplayBinding="{Binding Code}"
+                    IsEnabled="{Binding CurrenciesFetched}" />
                 <Entry x:Name="ConvertTarget" Text="{Binding TargetValue, Mode=OneWay}" IsEnabled="False" />
             </StackLayout>
 
