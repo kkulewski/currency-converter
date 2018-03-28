@@ -16,6 +16,7 @@ namespace CConv.ViewModels
         private ICurrency _targetCurrency;
         private decimal _sourceValue;
         private decimal _targetValue;
+        private IList<ICurrency> _currencies;
 
         public ConvertViewModel()
         {
@@ -26,11 +27,6 @@ namespace CConv.ViewModels
             };
 
             SelectedCurrencyProvider = CurrencyProviders.FirstOrDefault();
-
-            Currencies = SelectedCurrencyProvider.Currencies;
-
-            SourceCurrency = Currencies.FirstOrDefault();
-            TargetCurrency = Currencies.LastOrDefault();
 
             PropertyChanged += (sender, e) => Convert();
 
@@ -45,21 +41,29 @@ namespace CConv.ViewModels
 
         public ICurrencyProvider SelectedCurrencyProvider
         {
-            get => _currencyProvider;
-            set => SetProperty(ref _currencyProvider, value);
+            get => _currencyProvider ?? CurrencyProviders.FirstOrDefault();
+            set
+            {
+                _currencyProvider = value;
+                Currencies = _currencyProvider.Currencies;
+            }
         }
 
-        public IList<ICurrency> Currencies { get; set; }
+        public IList<ICurrency> Currencies
+        {
+            get => _currencies;
+            set => SetProperty(ref _currencies, value);
+        }
 
         public ICurrency SourceCurrency
         {
-            get => _sourceCurrency;
+            get => _sourceCurrency ?? Currencies.FirstOrDefault();
             set => SetProperty(ref _sourceCurrency, value);
         }
 
         public ICurrency TargetCurrency
         {
-            get => _targetCurrency;
+            get => _targetCurrency ?? Currencies.Skip(1).FirstOrDefault();
             set => SetProperty(ref _targetCurrency, value);
         }
 
