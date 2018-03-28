@@ -15,7 +15,7 @@
         string Name { get; set; }
 
         /// <summary>
-        /// Conversion rate to EUR.
+        /// Conversion rate.
         /// </summary>
         decimal Rate { get; set; }
     }

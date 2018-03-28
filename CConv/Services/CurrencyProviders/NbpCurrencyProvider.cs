@@ -21,6 +21,7 @@ namespace CConv.Services.CurrencyProviders
         {
             _table = table;
             Name = string.Format("NBP - {0}", _table);
+            Currencies = new List<ICurrency>();
         }
 
         public string Name { get; }
