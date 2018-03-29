@@ -100,6 +100,7 @@ namespace CConv.ViewModels
                 RaisePropertyChanged(nameof(Currencies));
                 RaisePropertyChanged(nameof(SourceCurrency));
                 RaisePropertyChanged(nameof(TargetCurrency));
+                RaisePropertyChanged(nameof(TargetValue));
                 CurrenciesFetched = true;
             }
         }
