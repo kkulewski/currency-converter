@@ -22,9 +22,9 @@ namespace CConv.Behaviors.Validators
                 return;
 
             var isDecimal = decimal.TryParse(e.NewTextValue, out var number);
-            var isPositive = number > 0;
+            var nonNegative = number >= 0;
 
-            entry.BackgroundColor = isDecimal && isPositive ? Color.PaleGreen : Color.Crimson;
+            entry.BackgroundColor = isDecimal && nonNegative ? Color.GreenYellow : Color.Tomato;
         }
     }
 }
