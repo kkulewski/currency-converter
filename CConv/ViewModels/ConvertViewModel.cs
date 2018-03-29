@@ -37,7 +37,9 @@ namespace CConv.ViewModels
             {
                 SetProperty(ref _currencyProvider, value);
                 RaisePropertyChanged(nameof(Currencies));
-                CurrenciesFetched = false;
+                RaisePropertyChanged(nameof(SourceCurrency));
+                RaisePropertyChanged(nameof(TargetCurrency));
+                CurrenciesFetched = _currencyProvider.Currencies.Any();
             }
         }
 
@@ -80,6 +82,8 @@ namespace CConv.ViewModels
 
         public decimal TargetValue => CurrenciesFetched ? Convert : 0;
 
+        private decimal Convert => ConversionService.Convert(SourceCurrency, TargetCurrency, SourceValue);
+
         private bool _currenciesFetched;
         public bool CurrenciesFetched
         {
@@ -98,7 +102,5 @@ namespace CConv.ViewModels
                 CurrenciesFetched = true;
             }
         }
-
-        private decimal Convert => ConversionService.Convert(SourceCurrency, TargetCurrency, SourceValue);
     }
 }
