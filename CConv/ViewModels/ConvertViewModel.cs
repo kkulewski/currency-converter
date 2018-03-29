@@ -80,9 +80,10 @@ namespace CConv.ViewModels
             }
         }
 
-        public decimal TargetValue => CurrenciesFetched ? Convert : 0;
-
-        private decimal Convert => ConversionService.Convert(SourceCurrency, TargetCurrency, SourceValue);
+        public decimal TargetValue =>
+            CurrenciesFetched
+            ? ConversionService.Convert(SourceCurrency, TargetCurrency, SourceValue)
+            : 0;
 
         private bool _currenciesFetched;
         public bool CurrenciesFetched
