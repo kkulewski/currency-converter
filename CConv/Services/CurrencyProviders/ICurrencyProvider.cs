@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CConv.Models;
 
-namespace CConv.Services
+namespace CConv.Services.CurrencyProviders
 {
     public interface ICurrencyProvider
     {

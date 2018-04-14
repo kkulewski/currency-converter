@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -36,6 +38,7 @@ namespace CConv.ViewModels
             set
             {
                 SetProperty(ref _currencyProvider, value);
+                RaisePropertyChanged(nameof(FetchedOn));
                 RaisePropertyChanged(nameof(Currencies));
                 RaisePropertyChanged(nameof(SourceCurrency));
                 RaisePropertyChanged(nameof(TargetCurrency));
@@ -92,11 +95,21 @@ namespace CConv.ViewModels
             set => SetProperty(ref _currenciesFetched, value);
         }
 
+        public string FetchedOn
+        {
+            get
+            {
+                var up = SelectedCurrencyProvider.UpdatedOn;
+                return up > DateTime.MinValue ? up.ToString(CultureInfo.InvariantCulture) : "never";
+            }
+        }
+
         private async Task FetchCurrencies()
         {
             var fetchSucceeded = await SelectedCurrencyProvider.Fetch();
             if (fetchSucceeded)
             {
+                RaisePropertyChanged(nameof(FetchedOn));
                 RaisePropertyChanged(nameof(Currencies));
                 RaisePropertyChanged(nameof(SourceCurrency));
                 RaisePropertyChanged(nameof(TargetCurrency));
