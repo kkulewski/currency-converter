@@ -1,6 +1,6 @@
 ﻿using CConv.Models;
 
-namespace CConv.Services
+namespace CConv.Services.Conversion
 {
     public class CurrencyConversionService : ICurrencyConversionService
     {
