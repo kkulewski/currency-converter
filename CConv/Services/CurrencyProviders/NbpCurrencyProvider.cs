@@ -33,6 +33,8 @@ namespace CConv.Services.CurrencyProviders
             private set => _cache.Set(value);
         }
 
+        public DateTime UpdatedOn => _cache.UpdatedOn; 
+
         public async Task<bool> Fetch()
         {
             try

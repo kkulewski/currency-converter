@@ -28,6 +28,8 @@ namespace CConv.Services.CurrencyProviders
 
         public IList<ICurrency> Currencies { get; }
 
+        public DateTime UpdatedOn => DateTime.Now;
+
         public async Task<bool> Fetch()
         {
             foreach (var currency in Currencies)
