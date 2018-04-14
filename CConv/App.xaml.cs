@@ -1,4 +1,8 @@
-﻿using Xamarin.Forms;
+﻿using System.Collections.Generic;
+using CConv.Services.Conversion;
+using CConv.Services.CurrencyProviders;
+using CConv.ViewModels;
+using Xamarin.Forms;
 
 namespace CConv
 {
@@ -6,6 +10,7 @@ namespace CConv
 	{
 		public App ()
 		{
+            ConfigureContainer();
 			InitializeComponent();
 
 			MainPage = new Views.MainPage();
@@ -25,5 +30,21 @@ namespace CConv
 		{
 			// Handle when your app resumes
 		}
+
+	    private static void ConfigureContainer()
+	    {
+	        Container.Register(new CurrencyConversionService());
+            Container.Register(new List<ICurrencyProvider>
+	        {
+	            new FakeCurrencyProvider(),
+	            new NbpCurrencyProvider(NbpTable.A),
+	            new NbpCurrencyProvider(NbpTable.B)
+	        });
+
+	        Container.Register(new ConvertViewModel(
+	            Container.Resolve<ICurrencyConversionService>(),
+	            Container.Resolve<IList<ICurrencyProvider>>()
+	        ));
+	    }
 	}
 }
