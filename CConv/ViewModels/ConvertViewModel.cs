@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using CConv.Models;
-using CConv.Services;
+using CConv.Services.Conversion;
 using CConv.Services.CurrencyProviders;
 using Xamarin.Forms;
 
@@ -13,17 +13,10 @@ namespace CConv.ViewModels
 {
     public class ConvertViewModel : BaseViewModel
     {
-        public ConvertViewModel()
+        public ConvertViewModel(ICurrencyConversionService conversion, IList<ICurrencyProvider> providers)
         {
-            ConversionService = new CurrencyConversionService();
-
-            CurrencyProviders = new List<ICurrencyProvider>
-            {
-                new FakeCurrencyProvider(),
-                new NbpCurrencyProvider(NbpTable.A),
-                new NbpCurrencyProvider(NbpTable.B)
-            };
-
+            ConversionService = conversion;
+            CurrencyProviders = providers;
             FetchCommand = new Command(async () => await FetchCurrencies());
         }
 
