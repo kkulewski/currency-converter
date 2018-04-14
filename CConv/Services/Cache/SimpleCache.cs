@@ -13,6 +13,18 @@ namespace CConv.Services.Cache
             _lifetime = lifetime;
         }
 
+        public bool Expired => DateTime.Now - _updatedOn >= _lifetime;
+
+        public void Expire()
+        {
+            _updatedOn = DateTime.MinValue;
+        }
+
+        public T Get()
+        {
+            return _item;
+        }
+
         public void Set(T item, TimeSpan lifetime)
         {
             _lifetime = lifetime;
@@ -23,16 +35,6 @@ namespace CConv.Services.Cache
         {
             _item = item;
             _updatedOn = DateTime.Now;
-        }
-
-        public T Get()
-        {
-            return _item;
-        }
-
-        public bool Valid()
-        {
-            return DateTime.Now - _updatedOn >= _lifetime;
         }
     }
 }

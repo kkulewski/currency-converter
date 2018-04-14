@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using CConv.Models;
+using CConv.Services.Cache;
 using Newtonsoft.Json;
 
 namespace CConv.Services.CurrencyProviders
@@ -10,27 +12,39 @@ namespace CConv.Services.CurrencyProviders
 
     public class NbpCurrencyProvider : ICurrencyProvider
     {
+        private readonly ICache<IList<ICurrency>> _cache;
         private readonly NbpTable _table;
 
         public NbpCurrencyProvider(NbpTable table)
         {
             _table = table;
+            _cache = new SimpleCache<IList<ICurrency>>(TimeSpan.FromSeconds(10));
+
             Name = string.Format("NBP - {0}", _table);
             Currencies = new List<ICurrency>();
+            _cache.Expire();
         }
 
         public string Name { get; }
 
-        public IList<ICurrency> Currencies { get; private set; }
+        public IList<ICurrency> Currencies
+        {
+            get => _cache.Get();
+            private set => _cache.Set(value);
+        }
 
         public async Task<bool> Fetch()
         {
             try
             {
+                if (!_cache.Expired)
+                {
+                    return true;
+                }
+
                 var uri = string.Format("http://api.nbp.pl/api/exchangerates/tables/{0}?format=json", _table);
                 var json = await DownloadJson(uri);
                 Currencies = DeserializeCurrencyList(json);
-
                 return true;
             }
             catch

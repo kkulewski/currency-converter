@@ -2,8 +2,9 @@
 {
     public interface ICache<T> where T: class
     {
-        void Set(T item);
+        bool Expired { get; }
+        void Expire();
         T Get();
-        bool Valid();
+        void Set(T item);
     }
 }
