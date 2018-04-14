@@ -34,7 +34,7 @@
                 <Picker
                     ItemsSource="{Binding Currencies}"
                     SelectedItem="{Binding SourceCurrency, Mode=TwoWay}"
-                    ItemDisplayBinding="{Binding Code}"
+                    ItemDisplayBinding="{Binding Name}"
                     IsEnabled="{Binding CurrenciesFetched}" />
                 <Entry 
                     x:Name="ConvertSource" 
@@ -51,7 +51,7 @@
                 <Picker
                     ItemsSource="{Binding Currencies}"
                     SelectedItem="{Binding TargetCurrency, Mode=TwoWay}"
-                    ItemDisplayBinding="{Binding Code}"
+                    ItemDisplayBinding="{Binding Name}"
                     IsEnabled="{Binding CurrenciesFetched}" />
                 <Entry
                     x:Name="ConvertTarget"
