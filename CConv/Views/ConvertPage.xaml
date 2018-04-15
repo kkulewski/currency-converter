@@ -36,11 +36,11 @@
                     ItemsSource="{Binding Currencies}"
                     SelectedItem="{Binding SourceCurrency, Mode=TwoWay}"
                     ItemDisplayBinding="{Binding Name}"
-                    IsEnabled="{Binding CurrenciesFetched}" />
+                    IsEnabled="{Binding CanConvert}" />
                 <Entry 
                     x:Name="ConvertSource" 
                     Text="{Binding SourceValue, Mode=TwoWay}"
-                    IsEnabled="{Binding CurrenciesFetched}">
+                    IsEnabled="{Binding CanConvert}">
                     <Entry.Behaviors>
                         <validators:CurrencyValidationBehavior />
                     </Entry.Behaviors>
@@ -53,7 +53,7 @@
                     ItemsSource="{Binding Currencies}"
                     SelectedItem="{Binding TargetCurrency, Mode=TwoWay}"
                     ItemDisplayBinding="{Binding Name}"
-                    IsEnabled="{Binding CurrenciesFetched}" />
+                    IsEnabled="{Binding CanConvert}" />
                 <Entry
                     x:Name="ConvertTarget"
                     Text="{Binding TargetValue, Mode=OneWay}"

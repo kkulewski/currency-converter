@@ -31,11 +31,7 @@ namespace CConv.ViewModels
             set
             {
                 SetProperty(ref _currencyProvider, value);
-                RaisePropertyChanged(nameof(FetchedOn));
-                RaisePropertyChanged(nameof(Currencies));
-                RaisePropertyChanged(nameof(SourceCurrency));
-                RaisePropertyChanged(nameof(TargetCurrency));
-                CurrenciesFetched = _currencyProvider.Currencies.Any();
+                CanConvert = _currencyProvider.Currencies.Any();
             }
         }
 
@@ -77,15 +73,19 @@ namespace CConv.ViewModels
         }
 
         public decimal TargetValue =>
-            CurrenciesFetched
+            CanConvert
             ? ConversionService.Convert(SourceCurrency, TargetCurrency, SourceValue)
             : 0;
 
-        private bool _currenciesFetched;
-        public bool CurrenciesFetched
+        private bool _canConvert;
+        public bool CanConvert
         {
-            get => _currenciesFetched;
-            set => SetProperty(ref _currenciesFetched, value);
+            get => _canConvert;
+            set
+            {
+                SetProperty(ref _canConvert, value);
+                RaiseRefreshNeeded();
+            } 
         }
 
         public string FetchedOn
@@ -102,13 +102,17 @@ namespace CConv.ViewModels
             var fetchSucceeded = await SelectedCurrencyProvider.Fetch();
             if (fetchSucceeded)
             {
-                RaisePropertyChanged(nameof(FetchedOn));
-                RaisePropertyChanged(nameof(Currencies));
-                RaisePropertyChanged(nameof(SourceCurrency));
-                RaisePropertyChanged(nameof(TargetCurrency));
-                RaisePropertyChanged(nameof(TargetValue));
-                CurrenciesFetched = true;
+                CanConvert = _currencyProvider.Currencies.Any();
             }
+        }
+
+        private void RaiseRefreshNeeded()
+        {
+            RaisePropertyChanged(nameof(FetchedOn));
+            RaisePropertyChanged(nameof(Currencies));
+            RaisePropertyChanged(nameof(SourceCurrency));
+            RaisePropertyChanged(nameof(TargetCurrency));
+            RaisePropertyChanged(nameof(TargetValue));
         }
     }
 }
