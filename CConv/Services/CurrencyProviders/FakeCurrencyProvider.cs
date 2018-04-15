@@ -41,5 +41,11 @@ namespace CConv.Services.CurrencyProviders
 
             return await Task.Run(() => true);
         }
+
+        public async Task<bool> Load()
+        {
+            await Fetch();
+            return await Task.Run(() => true);
+        }
     }
 }

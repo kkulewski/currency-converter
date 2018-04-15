@@ -14,5 +14,7 @@ namespace CConv.Services.CurrencyProviders
         DateTime UpdatedOn { get; }
 
         Task<bool> Fetch();
+
+        Task<bool> Load();
     }
 }
