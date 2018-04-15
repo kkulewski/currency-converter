@@ -6,7 +6,7 @@ namespace CConv.Services.Cache
     {
         T Get();
         void Set(T item);
-        DateTime UpdatedOn { get; }
+        DateTime UpdatedOn { get; set; }
         bool Expired { get; }
         void Expire();
     }

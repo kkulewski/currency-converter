@@ -29,7 +29,7 @@ namespace CConv.Services.Cache
             UpdatedOn = DateTime.Now;
         }
 
-        public DateTime UpdatedOn { get; private set; }
+        public DateTime UpdatedOn { get; set; }
 
         public bool Expired => DateTime.Now - UpdatedOn >= _lifetime;
 
