@@ -12,13 +12,16 @@ namespace CConv
 		{
             ConfigureContainer();
 			InitializeComponent();
-
 			MainPage = new Views.MainPage();
 		}
 
 		protected override void OnStart ()
 		{
-			// Handle when your app starts
+		    var providers = Container.Resolve<IList<ICurrencyProvider>>();
+		    foreach (var p in providers)
+		    {
+		        p.Load();
+		    }
 		}
 
 		protected override void OnSleep ()
