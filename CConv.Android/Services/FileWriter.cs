@@ -20,7 +20,13 @@ namespace CConv.Droid.Services
         {
             var documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             var filePath = Path.Combine(documentsPath, fileName);
-            return await Task.Run(() => File.ReadAllText(filePath));
+
+            if (File.Exists(filePath))
+            {
+                return await Task.Run(() => File.ReadAllText(filePath));
+            }
+
+            return await Task.Run(() => string.Empty);
         }
     }
 }
