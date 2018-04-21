@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CConv.Services.Conversion;
 using CConv.Services.CurrencyProviders;
 using CConv.ViewModels;
@@ -8,11 +9,16 @@ namespace CConv
 {
     public partial class App : Application
     {
+        private DateTime _sleepStart;
+        private readonly TimeSpan _sleepDurationLimit;
+
         public App()
         {
             ConfigureContainer();
             InitializeComponent();
-            MainPage = new Views.MainPage();
+            MainPage = new Views.ConvertPage();
+
+            _sleepDurationLimit = TimeSpan.FromMinutes(30);
         }
 
         protected override void OnStart()
@@ -26,12 +32,15 @@ namespace CConv
 
         protected override void OnSleep()
         {
-            // Handle when your app sleeps
+            _sleepStart = DateTime.Now;
         }
 
         protected override void OnResume()
         {
-            // Handle when your app resumes
+            if (DateTime.Now - _sleepStart > _sleepDurationLimit)
+            {
+                // prompt to fetch currencies
+            }
         }
 
         private static void ConfigureContainer()
