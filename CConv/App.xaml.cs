@@ -22,12 +22,12 @@ namespace CConv
             _sleepDurationLimit = TimeSpan.FromMinutes(30);
         }
 
-        protected override void OnStart()
+        protected override async void OnStart()
         {
             var providers = Container.Resolve<IList<ICurrencyProvider>>();
             foreach (var p in providers)
             {
-                p.Load();
+                await p.Load();
             }
 
             if (providers.Any(p => p.UpdatedOn == DateTime.MinValue))
@@ -54,7 +54,7 @@ namespace CConv
             Container.Register(new CurrencyConversionService());
             Container.Register(new List<ICurrencyProvider>
             {
-                // new FakeCurrencyProvider(),
+                new FakeCurrencyProvider(),
                 new NbpCurrencyProvider(NbpTable.A),
                 new NbpCurrencyProvider(NbpTable.B)
             });
