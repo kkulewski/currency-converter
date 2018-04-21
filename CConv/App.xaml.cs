@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CConv.Services.Conversion;
 using CConv.Services.CurrencyProviders;
 using CConv.ViewModels;
@@ -16,7 +17,7 @@ namespace CConv
         {
             ConfigureContainer();
             InitializeComponent();
-            MainPage = new Views.ConvertPage();
+            MainPage = new Views.MainPage();
 
             _sleepDurationLimit = TimeSpan.FromMinutes(30);
         }
@@ -27,6 +28,11 @@ namespace CConv
             foreach (var p in providers)
             {
                 p.Load();
+            }
+
+            if (providers.Any(p => p.UpdatedOn == DateTime.MinValue))
+            {
+                MessagingCenter.Send(this, MessageType.UninitializedRates);
             }
         }
 
@@ -39,7 +45,7 @@ namespace CConv
         {
             if (DateTime.Now - _sleepStart > _sleepDurationLimit)
             {
-                // prompt to fetch currencies
+                MessagingCenter.Send(this, MessageType.OutdatedRates);
             }
         }
 
@@ -48,7 +54,7 @@ namespace CConv
             Container.Register(new CurrencyConversionService());
             Container.Register(new List<ICurrencyProvider>
             {
-                new FakeCurrencyProvider(),
+                // new FakeCurrencyProvider(),
                 new NbpCurrencyProvider(NbpTable.A),
                 new NbpCurrencyProvider(NbpTable.B)
             });
