@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -6,63 +6,62 @@
              x:Class="CConv.Views.ConvertPage"
              Title="Convert">
 
-    <ContentPage.Content>
-        <ScrollView>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="3*" />
-                    <RowDefinition Height="3*" />
-                    <RowDefinition Height="3*" />
-                    <RowDefinition Height="1*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="3*" />
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
+    <ScrollView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
 
-                <StackLayout Grid.Row="1" Grid.Column="1">
-                    <Label Text="Provider" HorizontalTextAlignment="Center" />
-                    <Picker
+            <StackLayout Grid.Row="1" Grid.Column="1">
+                <Label Text="Provider" HorizontalTextAlignment="Center" />
+                <Picker
                         ItemsSource="{Binding CurrencyProviders}"
                         SelectedItem="{Binding SelectedCurrencyProvider, Mode=TwoWay}"
                         ItemDisplayBinding="{Binding Name}" />
-                    <Button Text="Fetch" Command="{Binding FetchCommand}" />
-                    <Label Text="{Binding FetchedOn}" HorizontalTextAlignment="Center" TextColor="DarkGray" />
-                </StackLayout>
+                <Button Text="Fetch" Command="{Binding FetchCommand}" />
+                <Label Text="{Binding FetchedOn}" HorizontalTextAlignment="Center" TextColor="DarkGray" />
+            </StackLayout>
 
-                <StackLayout Grid.Row="2" Grid.Column="1">
-                    <Label Text="Source" HorizontalTextAlignment="Center" />
-                    <Picker
+            <StackLayout Grid.Row="2" Grid.Column="1">
+                <Label Text="Source" HorizontalTextAlignment="Center" />
+                <Picker
                         ItemsSource="{Binding Currencies}"
                         SelectedItem="{Binding SourceCurrency, Mode=TwoWay}"
                         ItemDisplayBinding="{Binding Name}"
                         IsEnabled="{Binding CanConvert}" />
-                    <Entry
+                <Entry
                         x:Name="ConvertSource"
                         Text="{Binding SourceValue, Mode=TwoWay}"
                         IsEnabled="{Binding CanConvert}">
-                        <Entry.Behaviors>
-                            <validators:CurrencyValidationBehavior />
-                        </Entry.Behaviors>
-                    </Entry>
-                </StackLayout>
+                    <Entry.Behaviors>
+                        <validators:CurrencyValidationBehavior />
+                    </Entry.Behaviors>
+                </Entry>
+            </StackLayout>
 
-                <StackLayout Grid.Row="3" Grid.Column="1">
-                    <Label Text="Target" HorizontalTextAlignment="Center" />
-                    <Picker
+            <StackLayout Grid.Row="3" Grid.Column="1">
+                <Label Text="Target" HorizontalTextAlignment="Center" />
+                <Picker
                         ItemsSource="{Binding Currencies}"
                         SelectedItem="{Binding TargetCurrency, Mode=TwoWay}"
                         ItemDisplayBinding="{Binding Name}"
                         IsEnabled="{Binding CanConvert}" />
-                    <Entry
+                <Entry
                         x:Name="ConvertTarget"
                         Text="{Binding TargetValue, Mode=OneWay}"
                         IsEnabled="False" />
-                </StackLayout>
+            </StackLayout>
 
-            </Grid>
-        </ScrollView>
-    </ContentPage.Content>
+        </Grid>
+    </ScrollView>
+
 </ContentPage>
