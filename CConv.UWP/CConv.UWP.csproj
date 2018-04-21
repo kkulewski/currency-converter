@@ -150,11 +150,11 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="2.5.0.280555" />
-    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.1"/>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CConv\CConv.csproj">
-      <Project>{9F4663E7-3B7C-4BDC-8E15-ECD8556DA63D}</Project>
+      <Project>{1f31215f-01d2-4008-b8d8-3b65d1be4e13}</Project>
       <Name>CConv</Name>
     </ProjectReference>
   </ItemGroup>
