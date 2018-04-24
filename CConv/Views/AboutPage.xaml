@@ -6,7 +6,7 @@
              Title="About">
 
     <StackLayout>
-        <Label Text="Welcome to Xamarin.Forms!"
+        <Label Text="kkulewski.pl"
                VerticalOptions="CenterAndExpand"
                HorizontalOptions="CenterAndExpand" />
     </StackLayout>
