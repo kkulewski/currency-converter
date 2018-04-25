@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace CConv.Behaviors.Validators
+namespace CConv.Behaviors
 {
     internal class CurrencyValidationBehavior : Behavior<Entry>
     {
