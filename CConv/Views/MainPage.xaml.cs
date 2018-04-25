@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using CConv.ViewModels;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace CConv.Views
@@ -10,7 +11,7 @@ namespace CConv.Views
         {
             InitializeComponent();
 
-            MessagingCenter.Subscribe<App>
+            MessagingCenter.Subscribe<ConvertViewModel>
             (
                 this,
                 MessageType.UninitializedRates,
