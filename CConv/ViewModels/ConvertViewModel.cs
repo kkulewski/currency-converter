@@ -13,11 +13,16 @@ namespace CConv.ViewModels
 {
     public class ConvertViewModel : BaseViewModel
     {
-        public ConvertViewModel(ICurrencyConversionService conversion, IList<ICurrencyProvider> providers)
+        public ConvertViewModel()
         {
-            ConversionService = conversion;
-            CurrencyProviders = providers;
             FetchCommand = new Command(async () => await FetchCurrencies());
+            ConversionService = new CurrencyConversionService();
+            CurrencyProviders = new List<ICurrencyProvider>
+            {
+                new FakeCurrencyProvider(),
+                new NbpCurrencyProvider(NbpTable.A),
+                new NbpCurrencyProvider(NbpTable.B)
+            };
         }
 
         public ICurrencyConversionService ConversionService { get; set; }

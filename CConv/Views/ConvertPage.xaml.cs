@@ -7,10 +7,11 @@ namespace CConv.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ConvertPage : ContentPage
     {
+        private readonly ConvertViewModel _vm;
         public ConvertPage()
         {
             InitializeComponent();
-            BindingContext = Container.Resolve<ConvertViewModel>();
+            BindingContext = _vm = new ConvertViewModel();
         }
     }
 }
