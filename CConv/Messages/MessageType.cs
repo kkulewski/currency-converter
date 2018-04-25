@@ -1,4 +1,4 @@
-﻿namespace CConv
+﻿namespace CConv.Messages
 {
     public static class MessageType
     {

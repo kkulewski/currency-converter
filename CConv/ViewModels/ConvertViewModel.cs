@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using CConv.Messages;
 using CConv.Models;
 using CConv.Services.Conversion;
 using CConv.Services.CurrencyProviders;
