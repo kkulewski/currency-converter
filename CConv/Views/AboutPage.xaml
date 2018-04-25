@@ -5,10 +5,9 @@
              x:Class="CConv.Views.AboutPage"
              Title="About">
 
-    <StackLayout>
-        <Label Text="kkulewski.pl"
-               VerticalOptions="CenterAndExpand"
-               HorizontalOptions="CenterAndExpand" />
+    <StackLayout VerticalOptions="CenterAndExpand">
+        <Label Text="kkulewski.pl" HorizontalOptions="CenterAndExpand" />
+        <Label Text="github.com/kkulewski" HorizontalOptions="CenterAndExpand" />
     </StackLayout>
 
 </ContentPage>
