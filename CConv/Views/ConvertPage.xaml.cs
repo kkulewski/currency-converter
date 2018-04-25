@@ -12,6 +12,12 @@ namespace CConv.Views
         {
             InitializeComponent();
             BindingContext = _vm = new ConvertViewModel();
+            InitializeViewModel();
+        }
+
+        private async void InitializeViewModel()
+        {
+            await _vm.LoadProviders();
         }
     }
 }

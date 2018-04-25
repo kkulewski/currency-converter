@@ -119,5 +119,18 @@ namespace CConv.ViewModels
             RaisePropertyChanged(nameof(TargetCurrency));
             RaisePropertyChanged(nameof(TargetValue));
         }
+
+        public async Task LoadProviders()
+        {
+            foreach (var p in CurrencyProviders)
+            {
+                await p.Load();
+            }
+
+            if (CurrencyProviders.Any(p => p.UpdatedOn == DateTime.MinValue))
+            {
+                MessagingCenter.Send(this, MessageType.UninitializedRates);
+            }
+        }
     }
 }
