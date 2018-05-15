@@ -6,8 +6,8 @@
              Title="About">
 
     <StackLayout VerticalOptions="CenterAndExpand">
-        <Label Text="kkulewski.pl" HorizontalOptions="CenterAndExpand" />
-        <Label Text="github.com/kkulewski" HorizontalOptions="CenterAndExpand" />
+        <Label Text="{Binding HomeUrl}" HorizontalOptions="CenterAndExpand" />
+        <Label Text="{Binding GitHubUrl}" HorizontalOptions="CenterAndExpand" />
     </StackLayout>
 
 </ContentPage>

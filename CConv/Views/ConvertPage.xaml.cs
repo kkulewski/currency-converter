@@ -8,14 +8,13 @@ namespace CConv.Views
     public partial class ConvertPage : ContentPage
     {
         private readonly ConvertViewModel _vm;
-        public ConvertPage()
+        public ConvertPage(ConvertViewModel vm)
         {
             InitializeComponent();
-            BindingContext = _vm = new ConvertViewModel();
-            InitializeViewModel();
+            BindingContext = _vm = vm;
         }
 
-        private async void InitializeViewModel()
+        protected override async void OnAppearing()
         {
             await _vm.LoadProviders();
         }

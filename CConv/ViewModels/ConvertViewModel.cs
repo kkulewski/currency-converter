@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using CConv.Messages;
 using CConv.Models;
 using CConv.Services.Conversion;
 using CConv.Services.CurrencyProviders;
@@ -14,16 +13,11 @@ namespace CConv.ViewModels
 {
     public class ConvertViewModel : BaseViewModel
     {
-        public ConvertViewModel()
+        public ConvertViewModel(ICurrencyConversionService conversionService, IList<ICurrencyProvider> providers)
         {
             FetchCommand = new Command(async () => await FetchCurrencies());
-            ConversionService = new CurrencyConversionService();
-            CurrencyProviders = new List<ICurrencyProvider>
-            {
-                new FakeCurrencyProvider(),
-                new NbpCurrencyProvider(NbpTable.A),
-                new NbpCurrencyProvider(NbpTable.B)
-            };
+            ConversionService = conversionService;
+            CurrencyProviders = providers;
         }
 
         public ICurrencyConversionService ConversionService { get; set; }
@@ -126,11 +120,6 @@ namespace CConv.ViewModels
             foreach (var p in CurrencyProviders)
             {
                 await p.Load();
-            }
-
-            if (CurrencyProviders.Any(p => p.UpdatedOn == DateTime.MinValue))
-            {
-                MessagingCenter.Send(this, MessageType.UninitializedRates);
             }
         }
     }

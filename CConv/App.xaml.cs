@@ -1,32 +1,30 @@
-﻿using System;
-using CConv.Messages;
+﻿using System.Collections.Generic;
+using CConv.Services.Conversion;
+using CConv.Services.CurrencyProviders;
+using CConv.ViewModels;
+using CConv.Views;
 using Xamarin.Forms;
 
 namespace CConv
 {
     public partial class App : Application
     {
-        private DateTime _sleepStart;
-        private readonly TimeSpan _sleepDurationLimit;
-
         public App()
         {
             InitializeComponent();
-            MainPage = new Views.MainPage();
-            _sleepDurationLimit = TimeSpan.FromMinutes(60);
-        }
 
-        protected override void OnSleep()
-        {
-            _sleepStart = DateTime.Now;
-        }
-
-        protected override void OnResume()
-        {
-            if (DateTime.Now - _sleepStart > _sleepDurationLimit)
+            ICurrencyConversionService conversionService = new CurrencyConversionService();
+            IList<ICurrencyProvider> providers = new List<ICurrencyProvider>
             {
-                MessagingCenter.Send(this, MessageType.OutdatedRates);
-            }
+                new FakeCurrencyProvider(),
+                new NbpCurrencyProvider(NbpTable.A),
+                new NbpCurrencyProvider(NbpTable.B)
+            };
+
+            var mainPage = new TabbedPage();
+            mainPage.Children.Add(new ConvertPage(new ConvertViewModel(conversionService, providers)));
+            mainPage.Children.Add(new AboutPage(new AboutViewModel()));
+            MainPage = mainPage;
         }
     }
 }
