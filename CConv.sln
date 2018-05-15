@@ -7,7 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CConv.Android", "CConv.Andr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CConv.UWP", "CConv.UWP\CConv.UWP.csproj", "{C11D586E-0DB2-49C8-9AEC-C3B17ED1A1FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CConv", "CConv\CConv.csproj", "{1F31215F-01D2-4008-B8D8-3B65D1BE4E13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CConv", "CConv\CConv.csproj", "{1F31215F-01D2-4008-B8D8-3B65D1BE4E13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CConv.Tests", "CConv.Tests\CConv.Tests.csproj", "{38086E0F-2525-4339-81FA-9E2736DD7899}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,22 @@ Global
 		{1F31215F-01D2-4008-B8D8-3B65D1BE4E13}.Release|x64.Build.0 = Release|Any CPU
 		{1F31215F-01D2-4008-B8D8-3B65D1BE4E13}.Release|x86.ActiveCfg = Release|Any CPU
 		{1F31215F-01D2-4008-B8D8-3B65D1BE4E13}.Release|x86.Build.0 = Release|Any CPU
+		{38086E0F-2525-4339-81FA-9E2736DD7899}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38086E0F-2525-4339-81FA-9E2736DD7899}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38086E0F-2525-4339-81FA-9E2736DD7899}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{38086E0F-2525-4339-81FA-9E2736DD7899}.Debug|ARM.Build.0 = Debug|Any CPU
+		{38086E0F-2525-4339-81FA-9E2736DD7899}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{38086E0F-2525-4339-81FA-9E2736DD7899}.Debug|x64.Build.0 = Debug|Any CPU
+		{38086E0F-2525-4339-81FA-9E2736DD7899}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{38086E0F-2525-4339-81FA-9E2736DD7899}.Debug|x86.Build.0 = Debug|Any CPU
+		{38086E0F-2525-4339-81FA-9E2736DD7899}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38086E0F-2525-4339-81FA-9E2736DD7899}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38086E0F-2525-4339-81FA-9E2736DD7899}.Release|ARM.ActiveCfg = Release|Any CPU
+		{38086E0F-2525-4339-81FA-9E2736DD7899}.Release|ARM.Build.0 = Release|Any CPU
+		{38086E0F-2525-4339-81FA-9E2736DD7899}.Release|x64.ActiveCfg = Release|Any CPU
+		{38086E0F-2525-4339-81FA-9E2736DD7899}.Release|x64.Build.0 = Release|Any CPU
+		{38086E0F-2525-4339-81FA-9E2736DD7899}.Release|x86.ActiveCfg = Release|Any CPU
+		{38086E0F-2525-4339-81FA-9E2736DD7899}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
