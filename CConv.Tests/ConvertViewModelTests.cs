@@ -72,5 +72,25 @@ namespace CConv.Tests
             // Assert
             Assert.True(canConvert);
         }
+
+        [Fact]
+        public void Load_GivenValidCurrencyProviders_CallsLoadOnceOnEachProvider()
+        {
+            // Arrange
+            var conversionService = new Mock<ICurrencyConversionService>().Object;
+            var providerMock1 = new Mock<ICurrencyProvider>();
+            providerMock1.Setup(x => x.Load()).ReturnsAsync(true);
+            var providerMock2 = new Mock<ICurrencyProvider>();
+            providerMock2.Setup(x => x.Load()).ReturnsAsync(true);
+            var providers = new List<ICurrencyProvider> { providerMock1.Object, providerMock2.Object };
+            var vm = new ConvertViewModel(conversionService, providers);
+
+            // Act
+            vm.LoadProviders().Wait();
+
+            // Assert
+            providerMock1.Verify(x => x.Load(), Times.Exactly(1));
+            providerMock2.Verify(x => x.Load(), Times.Exactly(1));
+        }
     }
 }
