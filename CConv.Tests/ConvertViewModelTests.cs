@@ -50,5 +50,27 @@ namespace CConv.Tests
             // Assert
             Assert.False(canConvert);
         }
+
+        [Fact]
+        public void CanConvert_GivenProviderWithCurrencies_ReturnsTrue()
+        {
+            // Arrange
+            var conversionService = new Mock<ICurrencyConversionService>().Object;
+
+            var currency = new Currency { Code = "USD" };
+            var currencies = new List<ICurrency> { currency };
+            var providerMock = new Mock<ICurrencyProvider>();
+            providerMock.Setup(x => x.Currencies).Returns(currencies);
+
+            var providers = new List<ICurrencyProvider> { providerMock.Object };
+            var vm = new ConvertViewModel(conversionService, providers);
+
+            // Act
+            vm.SelectedCurrencyProvider = vm.CurrencyProviders.FirstOrDefault();
+            var canConvert = vm.CanConvert;
+
+            // Assert
+            Assert.True(canConvert);
+        }
     }
 }
