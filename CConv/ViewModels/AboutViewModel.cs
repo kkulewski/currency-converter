@@ -5,10 +5,10 @@
         public string HomeUrl { get; set; }
         public string GitHubUrl { get; set; }
 
-        public AboutViewModel()
+        public AboutViewModel(string homeUrl, string githubUrl)
         {
-            HomeUrl = "kkulewski.pl";
-            GitHubUrl = "github.com/kkulewski";
+            HomeUrl = homeUrl;
+            GitHubUrl = githubUrl;
         }
     }
 }

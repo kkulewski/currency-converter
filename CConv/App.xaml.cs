@@ -23,7 +23,7 @@ namespace CConv
 
             var mainPage = new TabbedPage();
             mainPage.Children.Add(new ConvertPage(new ConvertViewModel(conversionService, providers)));
-            mainPage.Children.Add(new AboutPage(new AboutViewModel()));
+            mainPage.Children.Add(new AboutPage(new AboutViewModel("kkulewski.pl", "github.com/kkulewski")));
             MainPage = mainPage;
         }
     }
