@@ -142,5 +142,24 @@ namespace CConv.Tests
             // Assert
             Assert.Equal(date.ToString(CultureInfo.InvariantCulture), fetchDate);
         }
+
+        [Fact]
+        public void SetSourceValue_RaisesPropertyChangedEvent()
+        {
+            // Arrange
+            var conversionService = new Mock<ICurrencyConversionService>().Object;
+            var providers = new List<ICurrencyProvider> { new Mock<ICurrencyProvider>().Object };
+            var vm = new ConvertViewModel(conversionService, providers);
+
+            var eventRaised = false;
+            vm.PropertyChanged += (sender, args) => eventRaised = true;
+
+            // Act
+            vm.SourceValue = 1.0m;
+
+            // Assert
+            Assert.True(eventRaised);
+
+        }
     }
 }
