@@ -56,12 +56,9 @@ namespace CConv.Tests
         {
             // Arrange
             var conversionService = new Mock<ICurrencyConversionService>().Object;
-
-            var currency = new Currency { Code = "USD" };
-            var currencies = new List<ICurrency> { currency };
+            var currencies = new List<ICurrency> { new Currency() };
             var providerMock = new Mock<ICurrencyProvider>();
             providerMock.Setup(x => x.Currencies).Returns(currencies);
-
             var providers = new List<ICurrencyProvider> { providerMock.Object };
             var vm = new ConvertViewModel(conversionService, providers);
 
@@ -91,6 +88,24 @@ namespace CConv.Tests
             // Assert
             providerMock1.Verify(x => x.Load(), Times.Exactly(1));
             providerMock2.Verify(x => x.Load(), Times.Exactly(1));
+        }
+
+        [Fact]
+        public void FetchCommand_FetchesCurrentlySelectedProvider()
+        {
+            // Arrange
+            var conversionService = new Mock<ICurrencyConversionService>().Object;
+            var providerMock1 = new Mock<ICurrencyProvider>();
+            providerMock1.Setup(x => x.Load()).ReturnsAsync(true);
+            providerMock1.Setup(x => x.Currencies).Returns(new List<ICurrency> { new Currency() });
+            var providers = new List<ICurrencyProvider> { providerMock1.Object };
+            var vm = new ConvertViewModel(conversionService, providers);
+
+            // Act
+            vm.FetchCommand.Execute(null);
+
+            // Assert
+            providerMock1.Verify(x => x.Fetch(), Times.Exactly(1));
         }
     }
 }
