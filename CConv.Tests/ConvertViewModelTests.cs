@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using CConv.Models;
 using CConv.Services.Conversion;
@@ -96,7 +98,6 @@ namespace CConv.Tests
             // Arrange
             var conversionService = new Mock<ICurrencyConversionService>().Object;
             var providerMock1 = new Mock<ICurrencyProvider>();
-            providerMock1.Setup(x => x.Load()).ReturnsAsync(true);
             providerMock1.Setup(x => x.Currencies).Returns(new List<ICurrency> { new Currency() });
             var providers = new List<ICurrencyProvider> { providerMock1.Object };
             var vm = new ConvertViewModel(conversionService, providers);
@@ -106,6 +107,40 @@ namespace CConv.Tests
 
             // Assert
             providerMock1.Verify(x => x.Fetch(), Times.Exactly(1));
+        }
+
+        [Fact]
+        public void FetchOn_GivenNotFetchedProvider_ReturnsNeverString()
+        {
+            // Arrange
+            var conversionService = new Mock<ICurrencyConversionService>().Object;
+            var providerMock1 = new Mock<ICurrencyProvider>();
+            var providers = new List<ICurrencyProvider> { providerMock1.Object };
+            var vm = new ConvertViewModel(conversionService, providers);
+
+            // Act
+            var fetchDate = vm.FetchedOn;
+
+            // Assert
+            Assert.Equal("never", fetchDate);
+        }
+
+        [Fact]
+        public void FetchOn_GivenFetchedProvider_ReturnsExpectedDateString()
+        {
+            // Arrange
+            var conversionService = new Mock<ICurrencyConversionService>().Object;
+            var providerMock1 = new Mock<ICurrencyProvider>();
+            var date = new DateTime(2010, 1, 1);
+            providerMock1.Setup(x => x.UpdatedOn).Returns(date);
+            var providers = new List<ICurrencyProvider> { providerMock1.Object };
+            var vm = new ConvertViewModel(conversionService, providers);
+
+            // Act
+            var fetchDate = vm.FetchedOn;
+
+            // Assert
+            Assert.Equal(date.ToString(CultureInfo.InvariantCulture), fetchDate);
         }
     }
 }
